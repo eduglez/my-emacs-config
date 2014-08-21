@@ -1,7 +1,7 @@
 * My Emacs Configuration
 ** Windows Install
 *** Prerequisites
-This configuration use el-get as package manager, so it needs the following applications to be include in the system PATH variable:
+This configuration uses el-get as package manager, so it needs the following applications to be include in the system PATH variable:
 + git http://git-scm.com/downloads
 + texinfo http://gnuwin32.sourceforge.net/packages/texinfo.htm
 And these DLL's copied in the %EMACS_APP_ABSOLUTE_DIRECTORY_PATH%\bin:
