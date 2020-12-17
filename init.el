@@ -34,34 +34,25 @@
 ;; (setq backup-inhibited t)
 ;; (setq auto-save-default nil)
 
-;; Set up el-get
-;; WINDOWS: it needs DLL. Copy bin directory in emacs directory
-;; http://www.gnu.org/software/emacs/manual/html_mono/emacs-gnutls.html#Help-For-Users
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-(unless (require 'el-get nil 'noerror)
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
-    (let (el-get-master-branch)
-      (goto-char (point-max))
-      (eval-print-last-sexp))))
+;; Set up package.el to work with MELPA
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/"))
+(package-initialize)
+(package-refresh-contents)
 
-;; List of all wanted packages
-(setq
- el-get-packages
- '(
-   autopair
-   ;;color-theme-solarized
-   web-mode
-))
+;; Download Evil
+(unless (package-installed-p 'evil)
+  (package-install 'evil))
 
-(el-get 'sync el-get-packages)
+;; Enable Evil
+(require 'evil)
+(evil-mode 1)
 
 ;; Set Unix End of Lines http://stackoverflow.com/questions/1674481/how-to-configure-gnu-emacs-to-write-unix-or-dos-formatted-files-by-default
 (set-default buffer-file-coding-system 'utf-8-unix)
 (set-default-coding-systems 'utf-8-unix)
 (prefer-coding-system 'utf-8-unix)
-(set-default default-buffer-file-coding-system 'utf-8-unix)
 
 ;; Inhibit startup message http://stackoverflow.com/questions/744672/unable-to-hide-welcome-screen-in-emacs
 (setq inhibit-splash-screen t)
@@ -70,22 +61,7 @@
 ;; No toolbar, menubar and scrollbar http://stackoverflow.com/questions/9423974/emacs-menu-bar-mode-and-tool-bar-mode-automatically-set-to-t
 (tool-bar-mode -1)
 (menu-bar-mode -1)
-(scroll-bar-mode -1)
 
 (setq c-basic-offset 4) ; indents 4 chars
 (setq tab-width 4)          ; and 4 char wide for TAB
 (setq indent-tabs-mode nil) ; And force use of spaces
-(turn-on-font-lock)       ; same as syntax on in Vim
-
-
-;WEB MODE
-(require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.cshtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
