@@ -34,21 +34,6 @@
 ;; (setq backup-inhibited t)
 ;; (setq auto-save-default nil)
 
-;; Set up package.el to work with MELPA
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/"))
-(package-initialize)
-(package-refresh-contents)
-
-;; Download Evil
-(unless (package-installed-p 'evil)
-  (package-install 'evil))
-
-;; Enable Evil
-(require 'evil)
-(evil-mode 1)
-
 ;; Set Unix End of Lines http://stackoverflow.com/questions/1674481/how-to-configure-gnu-emacs-to-write-unix-or-dos-formatted-files-by-default
 (set-default buffer-file-coding-system 'utf-8-unix)
 (set-default-coding-systems 'utf-8-unix)
